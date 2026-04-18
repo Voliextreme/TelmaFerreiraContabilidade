@@ -3,121 +3,557 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Serviços de Contabilidade</title>
+  <title>Telma Ferreira | Contabilidade</title>
   <style>
-    body {
+    @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;700&family=Manrope:wght@400;500;700;800&display=swap");
+
+    :root {
+      --bg-1: #f7efe5;
+      --bg-2: #efe1d2;
+      --ink: #15242f;
+      --muted: #4f5e68;
+      --brand: #0b5d67;
+      --brand-soft: #cce7e1;
+      --card: rgba(255, 255, 255, 0.65);
+      --line: rgba(21, 36, 47, 0.13);
+      --shadow: 0 18px 50px rgba(15, 40, 58, 0.15);
+      --radius-xl: 28px;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --max: 1150px;
+    }
+
+    * {
+      box-sizing: border-box;
       margin: 0;
-      font-family: Arial, sans-serif;
-      line-height: 1.6;
-      color: #333;
+      padding: 0;
     }
-    header {
-      background: #0d3b66;
-      color: white;
-      padding: 40px 20px;
-      text-align: center;
+
+    html {
+      scroll-behavior: smooth;
     }
-    section {
-      padding: 40px 20px;
-      max-width: 900px;
-      margin: auto;
+
+    body {
+      font-family: "Manrope", "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: radial-gradient(circle at 8% 6%, #fffdf8 0%, transparent 30%),
+                  radial-gradient(circle at 92% 16%, #dcefeb 0%, transparent 26%),
+                  linear-gradient(150deg, var(--bg-1), var(--bg-2));
+      min-height: 100vh;
+      overflow-x: hidden;
     }
-    h2 {
-      color: #0d3b66;
+
+    .ambient {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      background:
+        repeating-linear-gradient(
+          90deg,
+          transparent 0,
+          transparent 74px,
+          rgba(21, 36, 47, 0.025) 75px,
+          rgba(21, 36, 47, 0.025) 76px
+        );
+      animation: drift 28s linear infinite;
     }
-    .services {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
+
+    @keyframes drift {
+      from {
+        transform: translateY(0);
+      }
+      to {
+        transform: translateY(90px);
+      }
     }
-    .card {
-      background: #f4f4f4;
-      padding: 20px;
-      border-radius: 10px;
+
+    .float-shape {
+      position: fixed;
+      width: 340px;
+      height: 340px;
+      border-radius: 50%;
+      filter: blur(2px);
+      opacity: 0.35;
+      z-index: -1;
+      pointer-events: none;
     }
-    .cta {
-      text-align: center;
-      margin-top: 30px;
+
+    .float-shape.one {
+      top: -120px;
+      right: -90px;
+      background: radial-gradient(circle at center, #8bc8be, transparent 70%);
     }
-    .btn {
-      background: #25D366;
-      color: white;
-      padding: 15px 25px;
+
+    .float-shape.two {
+      bottom: 8%;
+      left: -130px;
+      background: radial-gradient(circle at center, #edc7a6, transparent 70%);
+    }
+
+    .wrapper {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 22px;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 10px;
+      z-index: 30;
+      backdrop-filter: blur(8px);
+      background: rgba(255, 255, 255, 0.58);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      border-radius: 999px;
+      box-shadow: 0 8px 20px rgba(13, 43, 58, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px 10px 18px;
+      margin-bottom: 30px;
+      animation: reveal 600ms ease both;
+    }
+
+    .brand {
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      font-size: 0.94rem;
+      text-transform: uppercase;
+    }
+
+    .menu {
+      display: flex;
+      gap: 8px;
+      list-style: none;
+    }
+
+    .menu a {
       text-decoration: none;
-      border-radius: 8px;
-      font-weight: bold;
-      display: inline-block;
+      color: var(--ink);
+      font-size: 0.86rem;
+      padding: 8px 12px;
+      border-radius: 999px;
+      transition: background 0.25s ease, transform 0.25s ease;
     }
-    footer {
-      background: #0d3b66;
-      color: white;
+
+    .menu a:hover {
+      background: #ffffff;
+      transform: translateY(-1px);
+    }
+
+    .hero {
+      min-height: 84vh;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      background: linear-gradient(175deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.55));
+      box-shadow: var(--shadow);
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 34px;
+      align-items: center;
+      padding: clamp(24px, 4vw, 50px);
+      overflow: hidden;
+      position: relative;
+      animation: reveal 720ms ease both;
+    }
+
+    .hero::after {
+      content: "scroll";
+      position: absolute;
+      right: 18px;
+      bottom: 18px;
+      text-transform: uppercase;
+      letter-spacing: 0.27em;
+      font-size: 0.68rem;
+      color: rgba(21, 36, 47, 0.36);
+    }
+
+    .kicker {
+      text-transform: uppercase;
+      letter-spacing: 0.13em;
+      color: var(--brand);
+      font-weight: 700;
+      font-size: 0.76rem;
+      margin-bottom: 14px;
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      line-height: 1;
+      font-weight: 700;
+    }
+
+    h1 {
+      font-size: clamp(2.4rem, 6.2vw, 5rem);
+      margin-bottom: 20px;
+      line-height: 0.95;
+    }
+
+    .hero p {
+      max-width: 54ch;
+      color: var(--muted);
+      font-size: 1.02rem;
+      line-height: 1.7;
+      margin-bottom: 28px;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn {
+      text-decoration: none;
+      border-radius: 999px;
+      padding: 12px 20px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn.main {
+      color: #ffffff;
+      background: linear-gradient(120deg, #0a6672, #0e7f8d);
+      box-shadow: 0 12px 24px rgba(14, 108, 120, 0.28);
+    }
+
+    .btn.ghost {
+      color: var(--ink);
+      background: #ffffff;
+      border: 1px solid var(--line);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 25px rgba(13, 70, 78, 0.18);
+    }
+
+    .photo-placeholder {
+      position: relative;
+      border-radius: var(--radius-xl);
+      min-height: 430px;
+      border: 1px dashed rgba(11, 93, 103, 0.45);
+      background:
+        linear-gradient(145deg, rgba(12, 106, 119, 0.1), rgba(12, 106, 119, 0.01)),
+        repeating-linear-gradient(-45deg, rgba(11, 93, 103, 0.12) 0 18px, rgba(255, 255, 255, 0.65) 18px 36px);
+      display: grid;
+      place-content: center;
       text-align: center;
-      padding: 20px;
-      margin-top: 40px;
+      padding: 24px;
     }
-    @media (max-width: 600px) {
-      .services {
+
+    .photo-placeholder strong {
+      display: block;
+      font-size: 1.2rem;
+      margin-bottom: 8px;
+      font-family: "Cormorant Garamond", serif;
+      letter-spacing: 0.02em;
+    }
+
+    .photo-placeholder span {
+      font-size: 0.92rem;
+      color: var(--muted);
+    }
+
+    .long-scroll {
+      margin-top: 32px;
+      display: grid;
+      gap: 18px;
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background: var(--card);
+      box-shadow: var(--shadow);
+      padding: clamp(22px, 4vw, 36px);
+      min-height: 58vh;
+      display: grid;
+      align-content: center;
+      animation: reveal 700ms ease both;
+    }
+
+    .panel h2 {
+      font-size: clamp(2rem, 4.5vw, 3.3rem);
+      margin-bottom: 16px;
+    }
+
+    .panel p {
+      max-width: 66ch;
+      color: var(--muted);
+      line-height: 1.8;
+      font-size: 1rem;
+    }
+
+    .services-wrap {
+      margin-top: 18px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .service {
+      background: #ffffff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      padding: 18px 18px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service .num {
+      display: inline-block;
+      font-size: 0.84rem;
+      color: var(--brand);
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      margin-bottom: 8px;
+    }
+
+    .service h3 {
+      font-size: 1.58rem;
+      margin-bottom: 7px;
+    }
+
+    .service p {
+      font-size: 0.95rem;
+      line-height: 1.65;
+    }
+
+    .service::after {
+      content: "";
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      right: -50px;
+      top: -52px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(12, 106, 119, 0.2), transparent 70%);
+    }
+
+    .contact {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 24px;
+      align-items: center;
+    }
+
+    .contact .mini {
+      font-size: 0.86rem;
+      color: var(--muted);
+      padding: 9px 12px;
+      background: rgba(255, 255, 255, 0.65);
+      border-radius: 999px;
+      border: 1px solid var(--line);
+    }
+
+    .infinite-ribbon {
+      margin-top: 20px;
+      overflow: hidden;
+      border-block: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.4);
+      white-space: nowrap;
+    }
+
+    .infinite-ribbon p {
+      display: inline-block;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.28em;
+      padding: 14px 0;
+      color: rgba(21, 36, 47, 0.46);
+      animation: marquee 28s linear infinite;
+    }
+
+    @keyframes marquee {
+      from {
+        transform: translateX(0);
+      }
+      to {
+        transform: translateX(-50%);
+      }
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 0.84rem;
+      color: rgba(21, 36, 47, 0.6);
+      padding: 26px 0 10px;
+    }
+
+    @keyframes reveal {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 900px) {
+      .topbar {
+        border-radius: 20px;
+        top: 8px;
+      }
+
+      .hero {
         grid-template-columns: 1fr;
+        min-height: auto;
+      }
+
+      .photo-placeholder {
+        min-height: 320px;
+      }
+
+      .services-wrap {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .wrapper {
+        padding: 14px;
+      }
+
+      .topbar {
+        gap: 10px;
+        flex-direction: column;
+      }
+
+      .menu {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .btn {
+        width: 100%;
+        text-align: center;
       }
     }
   </style>
 </head>
 <body>
+  <div class="ambient"></div>
+  <div class="float-shape one"></div>
+  <div class="float-shape two"></div>
 
-<header>
-  <h1>Serviços de Contabilidade</h1>
-  <p>Soluções profissionais para empresas e trabalhadores independentes</p>
-</header>
+  <div class="wrapper">
+    <header class="topbar">
+      <div class="brand">Telma Ferreira Contabilidade</div>
+      <ul class="menu">
+        <li><a href="#inicio">Início</a></li>
+        <li><a href="#sobre">Sobre Mim</a></li>
+        <li><a href="#servicos">Serviços</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </header>
 
-<section>
-  <h2>Sobre Mim</h2>
-  <p>
-    Sou profissional de contabilidade com experiência no apoio a empresas e trabalhadores independentes em Portugal.
-    O meu objetivo é simplificar a gestão financeira dos meus clientes, garantindo cumprimento fiscal e eficiência.
-  </p>
-</section>
+    <section class="hero" id="inicio">
+      <div>
+        <p class="kicker">Contabilidade com visão humana</p>
+        <h1>Uma presença forte para a saúde financeira do seu negócio.</h1>
+        <p>
+          Uma página desenhada para parecer contínua e fluida: cada secção abre espaço para a próxima,
+          criando uma experiência com sensação de scroll infinito, sempre elegante e organizada.
+        </p>
+        <div class="button-row">
+          <a class="btn main" href="#servicos">Ver Serviços</a>
+          <a class="btn ghost" href="#contacto">Pedir Contacto</a>
+        </div>
+      </div>
 
-<section>
-  <h2>Serviços</h2>
-  <div class="services">
-    <div class="card">
-      <h3>Contabilidade Geral</h3>
-      <p>Gestão completa da contabilidade da sua empresa.</p>
+      <aside class="photo-placeholder" aria-label="Espaço reservado para fotografia">
+        <div>
+          <strong>Fotografia</strong>
+          <span>Espaço reservado para a sua foto profissional</span>
+        </div>
+      </aside>
+    </section>
+
+    <div class="infinite-ribbon" aria-hidden="true">
+      <p>
+        CONTABILIDADE • ORGANIZAÇÃO • CRESCIMENTO • CONFIANÇA • CONTABILIDADE • ORGANIZAÇÃO • CRESCIMENTO • CONFIANÇA •
+      </p>
     </div>
-    <div class="card">
-      <h3>Consultoria Fiscal</h3>
-      <p>Planeamento fiscal e otimização de impostos.</p>
-    </div>
-    <div class="card">
-      <h3>Recibos Verdes</h3>
-      <p>Apoio a trabalhadores independentes.</p>
-    </div>
-    <div class="card">
-      <h3>Criação de Empresas</h3>
-      <p>Acompanhamento no processo de abertura de atividade.</p>
-    </div>
+
+    <main class="long-scroll">
+      <section class="panel" id="sobre">
+        <p class="kicker">Sobre Mim</p>
+        <h2>Rigor técnico, linguagem simples e acompanhamento próximo.</h2>
+        <p>
+          Sou profissional de contabilidade e trabalho lado a lado com empresas e trabalhadores independentes.
+          O foco é transformar obrigações fiscais em processos claros, previsíveis e sem stress, para que possa
+          concentrar-se no que realmente faz o seu negócio crescer.
+        </p>
+      </section>
+
+      <section class="panel" id="servicos">
+        <p class="kicker">Secção de Serviços</p>
+        <h2>Serviços numerados para facilitar a escolha.</h2>
+
+        <div class="services-wrap">
+          <article class="service">
+            <span class="num">01</span>
+            <h3>Contabilidade Geral</h3>
+            <p>Gestão contabilística completa, fechos mensais e relatórios claros para decisões seguras.</p>
+          </article>
+
+          <article class="service">
+            <span class="num">02</span>
+            <h3>Consultoria Fiscal</h3>
+            <p>Análise e planeamento fiscal com foco em cumprimento legal e eficiência tributária.</p>
+          </article>
+
+          <article class="service">
+            <span class="num">03</span>
+            <h3>Apoio ao Independente</h3>
+            <p>Recibos verdes, enquadramento fiscal, obrigações periódicas e esclarecimento contínuo.</p>
+          </article>
+
+          <article class="service">
+            <span class="num">04</span>
+            <h3>Criação de Empresa</h3>
+            <p>Acompanhamento no arranque da atividade, estrutura inicial e primeiras decisões financeiras.</p>
+          </article>
+
+          <article class="service">
+            <span class="num">05</span>
+            <h3>Gestão de Tesouraria</h3>
+            <p>Organização de entradas e saídas para melhorar previsibilidade e estabilidade mensal.</p>
+          </article>
+
+          <article class="service">
+            <span class="num">06</span>
+            <h3>Relatórios de Desempenho</h3>
+            <p>Indicadores e leitura prática dos números para apoiar decisões de curto e médio prazo.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="panel" id="contacto">
+        <p class="kicker">Contacto</p>
+        <h2>Vamos construir uma estrutura financeira sólida para o seu projeto.</h2>
+        <p>
+          Disponível para acompanhar negócios em diferentes fases, desde o início da atividade até à consolidação.
+          Podemos conversar e alinhar um serviço ajustado às suas necessidades reais.
+        </p>
+
+        <div class="contact">
+          <a class="btn main" href="https://wa.me/351912088066?text=Ol%C3%A1%2C%20gostaria%20de%20pedir%20informa%C3%A7%C3%B5es%20sobre%20os%20seus%20servi%C3%A7os%20de%20contabilidade." target="_blank" rel="noopener noreferrer">Falar no WhatsApp</a>
+          <div class="mini">Resposta rápida em horário útil</div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      © 2026 Telma Ferreira Contabilidade
+    </footer>
   </div>
-</section>
-
-<section>
-  <h2>Experiência</h2>
-  <p>
-    Experiência no acompanhamento de múltiplos setores, desde pequenas empresas a profissionais independentes,
-    com foco na precisão, transparência e confiança.
-  </p>
-</section>
-
-<section class="cta">
-  <h2>Precisa de ajuda?</h2>
-  <p>Entre em contacto diretamente comigo pelo WhatsApp:</p>
-  <a class="btn" href="https://wa.me/351912088066?text=Olá, gostaria de pedir informações sobre os seus serviços de contabilidade." target="_blank">
-    Falar no WhatsApp
-  </a>
-</section>
-
-<footer>
-  <p>© 2026 Serviços de Contabilidade</p>
-</footer>
-
 </body>
 </html>
